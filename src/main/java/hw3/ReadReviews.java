@@ -1,4 +1,4 @@
-package hw2;
+package hw3;
 
 import org.apache.mahout.math.Matrix;
 import tr.edu.hacettepe.document.Document;
