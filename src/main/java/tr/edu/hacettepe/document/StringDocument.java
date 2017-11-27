@@ -4,10 +4,11 @@ import java.io.Reader;
 import java.io.StringReader;
 
 public class StringDocument implements Document {
-	
+
 	private final String string;
-	
-	public StringDocument(String str) {
+
+	@SuppressWarnings("WeakerAccess")
+    public StringDocument(String str) {
 		this.string = str;
 	}
 
@@ -15,6 +16,6 @@ public class StringDocument implements Document {
 	public Reader openReader() {
 		return new StringReader(string);
 	}
-	
+
 
 }

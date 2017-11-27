@@ -4,8 +4,8 @@ import java.io.Reader;
 
 
 public interface Document {
-	
-	
-	public Reader openReader();
+
+
+    Reader openReader();
 
 }
