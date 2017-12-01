@@ -13,8 +13,7 @@ public class DocumentTermMatrixBuilder {
     public static Matrix createMatrix(MinPerfectHashing hashing,
                                       Corpus corpus, TokenizerFactory factory, int noOfDocs) {
 
-        SparseRowMatrix matrix = new SparseRowMatrix(noOfDocs,
-                hashing.size(), true);
+        SparseRowMatrix matrix = new SparseRowMatrix(noOfDocs, hashing.size(), false);
 
         int di = 0;
         for (Document document : corpus) {
