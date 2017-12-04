@@ -23,6 +23,7 @@ public class EM {
     private final int wordSize;
     private final int documentSize;
     private final PatriciaTreePerfectHash vocabulary;
+    private final int SHOW_ASPECTS = 20;
     private int topicSize;
     private Matrix wz;
     private Matrix zd;
@@ -202,22 +203,27 @@ public class EM {
         int z = 0;
         for (Map.Entry<String, String[]> entry : topicMap.entrySet()) {
             System.out.printf("Words for Topic: %s\n", entry.getKey());
-            Vector topic = wz.viewColumn(z);
-            Map<Integer, Double> map = new HashMap<>(topicSize);
-
-            for (int i = 0; i < topic.size(); i++) {
-                map.put(i, topic.get(i));
-            }
-
-            StringBuilder builder = new StringBuilder();
-            map.entrySet().stream()
-                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                    .limit(20)
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                            (oldValue, newValue) -> oldValue, LinkedHashMap::new))
-                    .forEach((index, probability) -> builder.append(vocabulary.findWord(index)).append(", "));
-            System.out.println(builder.toString());
+            printMaxWords(z, SHOW_ASPECTS);
+            z++;
         }
+    }
+
+    private void printMaxWords(int z, int size) {
+        Vector topic = wz.viewColumn(z);
+
+        Map<Integer, Double> topicWordIndex = new HashMap<>(topicSize);
+        for (int i = 0; i < topic.size(); i++) {
+            topicWordIndex.put(i, topic.get(i));
+        }
+
+        StringBuilder builder = new StringBuilder();
+        topicWordIndex.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(size)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+                .forEach((index, probability) -> builder.append(vocabulary.findWord(index)).append(", "));
+        System.out.println(builder.toString());
     }
 
     void execute(Matrix zd, Matrix wz) {
