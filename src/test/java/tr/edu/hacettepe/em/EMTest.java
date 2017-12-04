@@ -4,6 +4,10 @@ import org.apache.mahout.math.DenseMatrix;
 import org.apache.mahout.math.Matrix;
 import org.junit.Before;
 import org.junit.Test;
+import tr.edu.hacettepe.vocab.PatriciaTreePerfectHash;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EMTest {
 
@@ -25,7 +29,9 @@ public class EMTest {
 
 
         Matrix documentTermMatrix = new DenseMatrix(docTermMatrix);
-        em = new EM(documentTermMatrix, hashing, 2);
+        PatriciaTreePerfectHash vocabulary = null;
+        Map<String, String[]> topicMap = new HashMap<>(2);
+//        em = new EM(documentTermMatrix, null, topicMap);
 
     }
 
@@ -49,7 +55,7 @@ public class EMTest {
                 {0.719819, 0.583991, 0.589761, 0.632499, 0.855673, 0.503936, 0.526986, 0.063956, 0.606774},
                 {0.280181, 0.416009, 0.410239, 0.367501, 0.144327, 0.496064, 0.473014, 0.936044, 0.393226}
         };
-        em.execute(new DenseMatrix(zd), new DenseMatrix(wz));
+//        em.execute(new DenseMatrix(zd), new DenseMatrix(wz));
     }
 
 }
